@@ -111,7 +111,13 @@ function App() {
     };
 
     const handleSubmitNewRole = async () => {
-        setIsCreatingRole(true);
+        // Validate required fields
+        if (!newRole.role || newRole.skills.length === 0 || newRole.experience_keywords.length === 0) {
+            alert('Please fill in the required fields: Role Name, Skills, and Experience Keywords.');
+            return; // Prevent submission if validation fails
+        }
+
+        setIsCreatingRole(true); // Set loading state to true when starting role creation
         try {
             const response = await fetch(`${API_BASE_URL}/api/roles`, {
                 method: 'POST',
@@ -133,7 +139,7 @@ function App() {
             console.error('Error creating role:', error);
             alert('Failed to create role');
         } finally {
-            setIsCreatingRole(false);
+            setIsCreatingRole(false); // Reset loading state after role creation
         }
     };
 
@@ -223,7 +229,7 @@ function App() {
                         <div key={index}>
                             <TextField
                                 fullWidth
-                        required
+                                required
                                 label={`Skill ${index + 1}`}
                                 value={skill.name}
                                 onChange={(e) => {
