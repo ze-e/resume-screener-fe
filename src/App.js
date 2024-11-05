@@ -170,6 +170,13 @@ function App() {
                 ))}
             </Select>
 
+            <IconButton 
+                onClick={() => setOpenRoleDialog(true)}
+                style={{ marginTop: '20px' }}
+            >
+                <AddIcon /> Add New Role
+            </IconButton>
+
             <Button
                 variant="contained"
                 color="primary"
@@ -194,13 +201,6 @@ function App() {
                     <Typography variant="body1">ChatGPT Summary: {result.summary}</Typography>
                 </div>
             )}
-
-            <IconButton 
-                onClick={() => setOpenRoleDialog(true)}
-                style={{ marginTop: '20px' }}
-            >
-                <AddIcon /> Add New Role
-            </IconButton>
 
             <Dialog open={openRoleDialog} onClose={() => setOpenRoleDialog(false)} maxWidth="md" fullWidth>
                 <DialogTitle>Create New Role</DialogTitle>
