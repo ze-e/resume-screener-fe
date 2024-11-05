@@ -212,12 +212,14 @@ function App() {
                         value={newRole.role}
                         onChange={(e) => setNewRole(prev => ({ ...prev, role: e.target.value }))}
                         margin="normal"
+                        required
                     />
                     
                     {newRole.skills.map((skill, index) => (
                         <div key={index}>
                             <TextField
                                 fullWidth
+                        required
                                 label={`Skill ${index + 1}`}
                                 value={skill.name}
                                 onChange={(e) => {
