@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Typography, Button, Select, MenuItem, CircularProgress, TextField, Dialog, DialogTitle, DialogContent, DialogActions, IconButton } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
-import Toastify from 'toastify-js'; // Import Toastify
-import "toastify-js/src/toastify.css"; // Import Toastify CSS
+import Toastify from 'toastify-js'; 
+import "toastify-js/src/toastify.css"; 
 
 function App() {
     const [file, setFile] = useState(null);
@@ -67,7 +67,7 @@ function App() {
                 duration: 3000, // Duration in milliseconds
                 gravity: "top", // `top` or `bottom`
                 position: 'right', // `left`, `center` or `right`
-                backgroundColor: "linear-gradient(to right, #FF5F6D, #FFC371)", // Custom background color
+                backgroundColor: "#FF0000", // Custom background color
             }).showToast();
             return;
         }
@@ -103,7 +103,7 @@ function App() {
                 duration: 3000,
                 gravity: "top",
                 position: 'right',
-                backgroundColor: "linear-gradient(to right, #FF5F6D, #FFC371)",
+                backgroundColor: "#FF0000",
             }).showToast();
         } finally {
             setLoading(false);
@@ -124,16 +124,21 @@ function App() {
         }));
     };
 
+    // Function to create toast options
+    const createToast = (text, backgroundColor) => {
+        return {
+            text: text,
+            duration: 3000, // Duration in milliseconds
+            gravity: "top", // `top` or `bottom`
+            position: 'right', // `left`, `center` or `right`
+            backgroundColor: backgroundColor,
+        };
+    };
+
     const handleSubmitNewRole = async () => {
         // Validate required fields
         if (!newRole.role || newRole.skills.length === 0 || newRole.experience_keywords.length === 0) {
-            Toastify({
-                text: "Please fill in the required fields: Role Name, Skills, and Experience Keywords.",
-                duration: 3000, // Duration in milliseconds
-                gravity: "top", // `top` or `bottom`
-                position: 'right', // `left`, `center` or `right`
-                backgroundColor: "linear-gradient(to right, #FF5F6D, #FFC371)", // Custom background color
-            }).showToast();
+            Toastify(createToast("Please fill in the required fields: Role Name, Skills, and Experience Keywords.", "#FF0000")).showToast(); 
             return; // Prevent submission if validation fails
         }
 
@@ -157,22 +162,10 @@ function App() {
             setOpenRoleDialog(false);
 
             // Success notification
-            Toastify({
-                text: "Role created successfully!",
-                duration: 3000,
-                gravity: "top",
-                position: 'right',
-                backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)",
-            }).showToast();
+            Toastify(createToast("Role created successfully!", "#28a745")).showToast();  
         } catch (error) {
             console.error('Error creating role:', error);
-            Toastify({
-                text: "Failed to create role.",
-                duration: 3000,
-                gravity: "top",
-                position: 'right',
-                backgroundColor: "linear-gradient(to right, #FF5F6D, #FFC371)",
-            }).showToast();
+            Toastify(createToast("Failed to create role.", "#FF0000")).showToast(); 
         } finally {
             setIsCreatingRole(false); // Reset loading state after role creation
         }
@@ -350,9 +343,9 @@ function App() {
                         onClick={handleSubmitNewRole} 
                         variant="contained" 
                         color="primary" 
-                        disabled={isCreatingRole}
+                        disabled={isCreatingRole} // Disable button if creating role
                     >
-                        {isCreatingRole ? 'Creating...' : 'Create Role'}
+                        {isCreatingRole ? 'Creating...' : 'Create Role'} {/* Change button text while loading */}
                     </Button>
                 </DialogActions>
             </Dialog>
