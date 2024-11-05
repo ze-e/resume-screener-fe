@@ -20,6 +20,7 @@ function App() {
             education: 0.2
         }
     });
+    const [isCreatingRole, setIsCreatingRole] = useState(false);
     const API_BASE_URL = (() => {
         const url = process.env.REACT_APP_API_BASE_URL || 'http://localhost:5000';
         return url.split('#')[0].trim().replace(/\/$/, '');
@@ -110,6 +111,7 @@ function App() {
     };
 
     const handleSubmitNewRole = async () => {
+        setIsCreatingRole(true);
         try {
             const response = await fetch(`${API_BASE_URL}/api/roles`, {
                 method: 'POST',
@@ -130,6 +132,8 @@ function App() {
         } catch (error) {
             console.error('Error creating role:', error);
             alert('Failed to create role');
+        } finally {
+            setIsCreatingRole(false);
         }
     };
 
@@ -301,8 +305,13 @@ function App() {
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={() => setOpenRoleDialog(false)}>Cancel</Button>
-                    <Button onClick={handleSubmitNewRole} variant="contained" color="primary">
-                        Create Role
+                    <Button 
+                        onClick={handleSubmitNewRole} 
+                        variant="contained" 
+                        color="primary" 
+                        disabled={isCreatingRole}
+                    >
+                        {isCreatingRole ? 'Creating...' : 'Create Role'}
                     </Button>
                 </DialogActions>
             </Dialog>
