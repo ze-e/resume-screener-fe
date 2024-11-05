@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Typography, Button, Select, MenuItem, CircularProgress, TextField, Dialog, DialogTitle, DialogContent, DialogActions, IconButton } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
+import Toastify from 'toastify-js'; // Import Toastify
+import "toastify-js/src/toastify.css"; // Import Toastify CSS
 
 function App() {
     const [file, setFile] = useState(null);
@@ -60,7 +62,13 @@ function App() {
 
     const handleSubmit = async () => {
         if (!file || !jobRole) {
-            alert('Please select a file and job role');
+            Toastify({
+                text: "Please select a file and job role",
+                duration: 3000, // Duration in milliseconds
+                gravity: "top", // `top` or `bottom`
+                position: 'right', // `left`, `center` or `right`
+                backgroundColor: "linear-gradient(to right, #FF5F6D, #FFC371)", // Custom background color
+            }).showToast();
             return;
         }
         setLoading(true);
@@ -90,7 +98,13 @@ function App() {
             setResult(data); 
         } catch (error) {
             console.error('Detailed error:', error);
-            alert(`Error uploading resume: ${error.message}`);
+            Toastify({
+                text: `Error uploading resume: ${error.message}`,
+                duration: 3000,
+                gravity: "top",
+                position: 'right',
+                backgroundColor: "linear-gradient(to right, #FF5F6D, #FFC371)",
+            }).showToast();
         } finally {
             setLoading(false);
         }
@@ -113,7 +127,13 @@ function App() {
     const handleSubmitNewRole = async () => {
         // Validate required fields
         if (!newRole.role || newRole.skills.length === 0 || newRole.experience_keywords.length === 0) {
-            alert('Please fill in the required fields: Role Name, Skills, and Experience Keywords.');
+            Toastify({
+                text: "Please fill in the required fields: Role Name, Skills, and Experience Keywords.",
+                duration: 3000, // Duration in milliseconds
+                gravity: "top", // `top` or `bottom`
+                position: 'right', // `left`, `center` or `right`
+                backgroundColor: "linear-gradient(to right, #FF5F6D, #FFC371)", // Custom background color
+            }).showToast();
             return; // Prevent submission if validation fails
         }
 
@@ -135,9 +155,24 @@ function App() {
             const updatedRoles = await fetch(`${API_BASE_URL}/api/roles`).then(res => res.json());
             setJobRoles(updatedRoles);
             setOpenRoleDialog(false);
+
+            // Success notification
+            Toastify({
+                text: "Role created successfully!",
+                duration: 3000,
+                gravity: "top",
+                position: 'right',
+                backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)",
+            }).showToast();
         } catch (error) {
             console.error('Error creating role:', error);
-            alert('Failed to create role');
+            Toastify({
+                text: "Failed to create role.",
+                duration: 3000,
+                gravity: "top",
+                position: 'right',
+                backgroundColor: "linear-gradient(to right, #FF5F6D, #FFC371)",
+            }).showToast();
         } finally {
             setIsCreatingRole(false); // Reset loading state after role creation
         }
