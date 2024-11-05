@@ -170,7 +170,7 @@ function App() {
                 ))}
             </Select>
 
-            <div style={{ marginTop: '20px' }}>
+            <div style={{ marginTop: '20px', display: 'flex', flexDirection: 'column', gap: '10px' }}>
                 <IconButton 
                     onClick={() => setOpenRoleDialog(true)}
                     style={{ marginBottom: '10px' }}
