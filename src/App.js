@@ -170,21 +170,22 @@ function App() {
                 ))}
             </Select>
 
-            <IconButton 
-                onClick={() => setOpenRoleDialog(true)}
-                style={{ marginTop: '20px' }}
-            >
-                <AddIcon /> Add New Role
-            </IconButton>
+            <div style={{ marginTop: '20px' }}>
+                <IconButton 
+                    onClick={() => setOpenRoleDialog(true)}
+                    style={{ marginBottom: '10px' }}
+                >
+                    <AddIcon /> Add New Role
+                </IconButton>
 
-            <Button
-                variant="contained"
-                color="primary"
-                onClick={handleSubmit}
-                style={{ marginTop: '20px' }}
-            >
-                Submit
-            </Button>
+                <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={handleSubmit}
+                >
+                    Submit
+                </Button>
+            </div>
 
             {loading && (
                 <div style={{ marginTop: '20px' }}>
